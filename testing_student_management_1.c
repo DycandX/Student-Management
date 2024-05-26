@@ -2,6 +2,9 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
+#include <windows.h>
+#include "loading.h"
+#include "displayMessage.h"
 
 // Struktur data untuk menyimpan informasi mahasiswa
 struct Mahasiswa {
@@ -15,6 +18,11 @@ struct Mahasiswa {
 
 struct Mahasiswa mahasiswa[100]; // Maksimum 100 mahasiswa
 int jumlahMahasiswa = 0;
+
+void setFullScreen() {
+    HWND console = GetConsoleWindow();
+    ShowWindow(console, SW_MAXIMIZE); // Memaksimalkan jendela konsol
+}
 
 // Fungsi untuk menghilangkan spasi di awal dan akhir string
 char *trim(char *str) {
@@ -314,9 +322,16 @@ void simpanKeFile() {
 }
 
 int main() {
+	setFullScreen();
     int pilihan;
+    
+    system("cls");
+    
+    displayWelcomeMessage();
+    loading_bar(4); // Loading page at the start
+    
     while (1) {
-        system("cls"); // Bersihkan layar
+        system("cls"); 
         printf("\nMenu:\n");
         printf("1. Muat data dari file\n");
         printf("2. Tambah data mahasiswa\n");
