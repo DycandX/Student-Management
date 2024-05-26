@@ -4,6 +4,4 @@ Zulvikar Kharisma    | 43323226   | Teknik Elektro  | TRK                       
 Adjie Raditya        | 43323202   | Teknik Elektro  | TRK                       | Kota Semarang        | 07/09/2005     
 Testing Tes          | 123        | Testing tes     | Testing tes               | Testing tes          | 12/12/12       
 Testing Tes 2        | 321        | Testing Tes 2   | Testing Tes 3             | Testing Tes 2        | 12/12/12       
-testing tes 3        | 456        | testing tes 3   | testing tes 3             | testing tes 3        | 12/12/12       
 testing tes 4        | 567        | testing 4       | testing tes 4             | testing tes 4        | 12/12/12       
-43323226             | 0          | df              | ds                        | df                   | fd             
