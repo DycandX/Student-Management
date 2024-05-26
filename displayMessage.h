@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include "displayMessage.h"
 
 // Fungsi untuk menampilkan welcome message
 void displayWelcomeMessage() {
@@ -14,4 +15,10 @@ void displayWelcomeMessage() {
     printf("\t\t\t\t\t     ******** Welcome to Simple Student Management System ********\n");
     printf("\t\t\t\t\t     **************** By Zulvikar.exe ****************************\n");
     printf("\t\t\t\t\t     *************************************************************\n\n");
+}
+
+void displayLoadingComplete() {
+    printf(" _        _  ___       __    _  _        _      _ ___ _  _  \n");
+    printf(" |  / \\  /\\  | \\  |  |\\ | /__   /  / \\ |\\/| |_) |  |_  | |_ | \\ \n");
+    printf(" |_ \\_/ /--\\ |_/ _|_ | \\| \\_|   \\_ \\_/ |  | |   |_ |_  | |_ |_/\n");
 }

@@ -316,7 +316,7 @@ int main() {
     system("cls");
     
     displayWelcomeMessage();
-    loading_bar(4); // Loading page at the start
+    loading_bar(5); // Loading page at the start
     
     while (1) {
         system("cls"); 

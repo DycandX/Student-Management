@@ -2,7 +2,7 @@
 #include <Windows.h>
 
 void loading(int seconds) {
-    printf("\n\t\t\t\t\t\t\t\t\t\tLoading");
+    printf("\n\t\t\t\t\t\t\t\tLoading");
     fflush(stdout);
 
     int interval = 500; // default interval in milliseconds
@@ -19,11 +19,17 @@ void loading(int seconds) {
     system("cls");
 }
 
+void displayLoadingComplete() {
+    printf(" _        _  ___       __    _  _        _      _ ___ _  _  \n");
+    printf(" |  / \\  /\\  | \\  |  |\\ | /__   /  / \\ |\\/| |_) |  |_  | |_ | \\ \n");
+    printf(" |_ \\_/ /--\\ |_/ _|_ | \\| \\_|   \\_ \\_/ |  | |   |_ |_  | |_ |_/\n");
+}
+
 void loading_bar(int seconds) {
     //system("cls");
-    printf("\n\t\t\t\t\t\t\t\t\t\tLoading...");
-    printf("\n\t\t\t\t\t\t\t\t\t\n");
-    printf("\t\t\t\t\t\t\t\t\t");
+    printf("\n\t\t\t\t\t\t\t\t\tLoading...");
+    printf("\n\t\t\t\t\t\t\t\n");
+    printf("\t\t\t\t\t\t\t");
     
 
     int interval = 150; // default interval in milliseconds
@@ -37,8 +43,8 @@ void loading_bar(int seconds) {
         printf("%c", x);
     }
     system("cls");
-    
-    printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\t\t\t\t\t\t\t\t\tLoading Completed");
+    displayLoadingComplete();
+    printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\t\t\t\t\t\t\tLoading Completed");
     Sleep(1000);
 
     system("cls");
