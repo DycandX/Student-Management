@@ -1,6 +1,1 @@
-Nama                 | NIM        | Jurusan         | Prodi                     | Asal                 | Tanggal Lahir  
-----------------------------------------------------------------------------------------------------------------------
-Zulvikar Kharisma    | 43323226   | Teknik Elektro  | TRK                       | Kota Semarang        | 28/04/2004     
-Adjie Raditya        | 43323202   | Teknik Elektro  | TRK                       | Kota Semarang        | 07/09/2005     
-Testing Tes 2        | 321        | Testing Tes 2   | Testing Tes 3             | Testing Tes 2        | 12/12/12       
-testing tes 4        | 567        | testing 4       | testing tes 4             | testing tes 4        | 12/12/12       
+Zulvikar|1|Teknik Elektro|TRK|Semarang|28/04/2004
