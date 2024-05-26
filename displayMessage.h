@@ -1,9 +1,7 @@
 #include <stdio.h>
-#include "displayMessage.h"
 
-// Fungsi untuk menampilkan welcome message
 void displayWelcomeMessage() {
-	printf("\n\n\n");
+    printf("\n\n\n");
     printf("\t\t   _____ _______ _    _ _____  ______ _   _ _______   __  __          _   _          _____ ______ __  __ ______ _   _ _______ \n");
     printf("\t\t  / ____|__   __| |  | |  __ \\|  ____| \\ | |__   __| |  \\/  |   /\\   | \\ | |   /\\   / ____|  ____|  \\/  |  ____| \\ | |__   __|\n");
     printf("\t\t | (___    | |  | |  | | |  | | |__  |  \\| |  | |    | \\  / |  /  \\  |  \\| |  /  \\ | |  __| |__  | \\  / | |__  |  \\| |  | |   \n");
@@ -22,3 +20,4 @@ void displayLoadingComplete() {
     printf(" |  / \\  /\\  | \\  |  |\\ | /__   /  / \\ |\\/| |_) |  |_  | |_ | \\ \n");
     printf(" |_ \\_/ /--\\ |_/ _|_ | \\| \\_|   \\_ \\_/ |  | |   |_ |_  | |_ |_/\n");
 }
+

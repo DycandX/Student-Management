@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <Windows.h>
+#include "displayMessage.h"
 
 void loading(int seconds) {
     printf("\n\t\t\t\t\t\t\t\tLoading");
@@ -17,12 +18,6 @@ void loading(int seconds) {
 
     printf("\n");
     system("cls");
-}
-
-void displayLoadingComplete() {
-    printf(" _        _  ___       __    _  _        _      _ ___ _  _  \n");
-    printf(" |  / \\  /\\  | \\  |  |\\ | /__   /  / \\ |\\/| |_) |  |_  | |_ | \\ \n");
-    printf(" |_ \\_/ /--\\ |_/ _|_ | \\| \\_|   \\_ \\_/ |  | |   |_ |_  | |_ |_/\n");
 }
 
 void loading_bar(int seconds) {
