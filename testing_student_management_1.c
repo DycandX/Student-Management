@@ -280,6 +280,7 @@ void hapusMahasiswa() {
 
 // Fungsi untuk menampilkan semua data mahasiswa dalam format tabel
 void tampilkanSemuaMahasiswa() {
+	printf("\n");
     printf("%-20s | %-10s | %-15s | %-25s | %-20s | %-15s\n", 
            "Nama", "NIM", "Jurusan", "Prodi", "Asal", "Tanggal Lahir");
     printf("----------------------------------------------------------------------------------------------------------------------\n");
@@ -315,7 +316,8 @@ void simpanKeFile() {
 int main() {
     int pilihan;
     while (1) {
-        printf("Menu:\n");
+        system("cls"); // Bersihkan layar
+        printf("\nMenu:\n");
         printf("1. Muat data dari file\n");
         printf("2. Tambah data mahasiswa\n");
         printf("3. Cari data mahasiswa\n");
@@ -336,8 +338,10 @@ int main() {
                 break;
             case 3: {
                 int cariNIM;
-                printf("Masukkan NIM yang akan dicari: ");
+                tampilkanSemuaMahasiswa();
+                printf("\nMasukkan NIM yang akan dicari: ");
                 scanf("%d", &cariNIM);
+                printf("\n");
                 cariMahasiswa(cariNIM);
                 break;
             }
@@ -358,6 +362,9 @@ int main() {
             default:
                 printf("Pilihan tidak valid. Silakan coba lagi.\n");
         }
+        printf("\nTekan Enter untuk melanjutkan...");
+        getchar(); // Menunggu input dari pengguna
+        getchar(); // Menangkap karakter Enter
     }
     return 0;
 }
