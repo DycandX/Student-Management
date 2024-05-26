@@ -233,6 +233,50 @@ void editMahasiswa() {
     }
     printf("Mahasiswa dengan NIM %d tidak ditemukan.\n", editNIM);
 }
+// Fungsi untuk menghapus data mahasiswa berdasarkan NIM
+void hapusMahasiswa() {
+    int hapusNIM;
+    printf("Masukkan NIM mahasiswa yang akan dihapus: ");
+    scanf("%d", &hapusNIM);
+    int i, j, ditemukan = 0;
+    for (i = 0; i < jumlahMahasiswa; i++) {
+        if (mahasiswa[i].nim == hapusNIM) {
+            ditemukan = 1;
+            free(mahasiswa[i].nama);
+            free(mahasiswa[i].jurusan);
+            free(mahasiswa[i].prodi);
+            free(mahasiswa[i].asal);
+            free(mahasiswa[i].tanggal_lahir);
+            for (j = i; j < jumlahMahasiswa - 1; j++) {
+                mahasiswa[j] = mahasiswa[j + 1];
+            }
+            jumlahMahasiswa--;
+            break;
+        }
+    }
+    if (!ditemukan) {
+        printf("Mahasiswa dengan NIM %d tidak ditemukan.\n", hapusNIM);
+        return;
+    }
+
+    // Memperbarui file mahasiswa.txt
+    FILE *file = fopen("mahasiswa.txt", "w");
+    if (file == NULL) {
+        printf("Gagal membuka file.\n");
+        return;
+    }
+    fprintf(file, "%-20s | %-10s | %-15s | %-25s | %-20s | %-15s\n", 
+            "Nama", "NIM", "Jurusan", "Prodi", "Asal", "Tanggal Lahir");
+    fprintf(file, "----------------------------------------------------------------------------------------------------------------------\n");
+    for (i = 0; i < jumlahMahasiswa; i++) {
+        fprintf(file, "%-20s | %-10d | %-15s | %-25s | %-20s | %-15s\n", 
+                mahasiswa[i].nama, mahasiswa[i].nim, mahasiswa[i].jurusan, mahasiswa[i].prodi, mahasiswa[i].asal,
+                mahasiswa[i].tanggal_lahir);
+    }
+    fclose(file);
+
+    printf("Data mahasiswa berhasil dihapus.\n");
+}
 
 // Fungsi untuk menampilkan semua data mahasiswa dalam format tabel
 void tampilkanSemuaMahasiswa() {
@@ -276,9 +320,10 @@ int main() {
         printf("2. Tambah data mahasiswa\n");
         printf("3. Cari data mahasiswa\n");
         printf("4. Edit data mahasiswa\n");
-        printf("5. Tampilkan semua data mahasiswa\n");
-        printf("6. Simpan data ke file\n");
-        printf("7. Keluar\n");
+        printf("5. Hapus Data Mahasiswa\n");
+        printf("6. Tampilkan semua data mahasiswa\n");
+        printf("7. Simpan data ke file\n");
+        printf("8. Keluar\n");
         printf("Masukkan pilihan Anda: ");
         scanf("%d", &pilihan);
 
@@ -300,12 +345,15 @@ int main() {
                 editMahasiswa();
                 break;
             case 5:
-                tampilkanSemuaMahasiswa();
+                hapusMahasiswa();
                 break;
             case 6:
-                simpanKeFile();
+                tampilkanSemuaMahasiswa();
                 break;
             case 7:
+                simpanKeFile();
+                break;
+            case 8:
                 exit(0);
             default:
                 printf("Pilihan tidak valid. Silakan coba lagi.\n");
