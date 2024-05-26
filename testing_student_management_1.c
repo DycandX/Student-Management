@@ -18,6 +18,7 @@ struct Mahasiswa {
 
 struct Mahasiswa *head = NULL; // Head of the linked list
 
+// Fungsi untuk load data dari file mahasiswa.txt
 void loadData() {
     FILE *file = fopen("mahasiswa.txt", "r");
     if (file == NULL) {
@@ -65,7 +66,7 @@ void loadData() {
     printf("Data mahasiswa berhasil dimuat dari file.\n");
 }
 
-
+// Fungsi untuk menyimpan data ke dalam file mahasiswa.txt
 void simpanKeFile() {
     FILE *file = fopen("mahasiswa.txt", "w");
     if (file == NULL) {
@@ -90,8 +91,7 @@ void simpanKeFile() {
     fclose(file);
 }
 
-
-
+// Fungsi untuk menambah data ke linked list
 void tambahMahasiswa() {
     struct Mahasiswa *newMahasiswa = (struct Mahasiswa*)malloc(sizeof(struct Mahasiswa));
     newMahasiswa->nama = malloc(100 * sizeof(char));
@@ -141,6 +141,7 @@ void tambahMahasiswa() {
     printf("Data mahasiswa berhasil ditambahkan.\n");
 }
 
+// Fungsi untuk menampilkan data menjadi table
 void tampilkanSemuaMahasiswa() {
     struct Mahasiswa *current = head;
     int nomorUrutan = 1; // Inisialisasi nomor urutan
@@ -162,8 +163,7 @@ void tampilkanSemuaMahasiswa() {
     }
 }
 
-
-
+// Fungsi untuk mengedit data
 void editMahasiswa() {
     int editNIM;
     char temp[100]; // Deklarasi variabel temp di sini
@@ -235,7 +235,7 @@ void editMahasiswa() {
 }
 
 
-
+// Fungsi untuk menghapus data dari linked list
 void hapusMahasiswa() {
     int hapusNIM;
     printf("Masukkan NIM mahasiswa yang akan dihapus: ");
@@ -283,6 +283,7 @@ void hapusMahasiswa() {
     simpanKeFile();
 }
 
+// Fungsi untuk pencarian data menggunakan sequential search
 void cariMahasiswa(int cariNIM) {
     struct Mahasiswa *current = head;
     int nomorUrutan = 1;
@@ -292,7 +293,7 @@ void cariMahasiswa(int cariNIM) {
     printf("------------------------------------------------------------------------------------------------------------------------------\n");
     while (current != NULL) {
         if (current->nim == cariNIM) {
-            printf("%-5d | %-20s | %-20s | %-10s | %-25s | %-20s | %-15s\n", 
+            printf("%-5d | %-20s | %-20d | %-10s | %-25s | %-20s | %-15s\n", 
                nomorUrutan, current->nama, current->nim, current->jurusan, 
                current->prodi, current->asal, current->tanggal_lahir);
             found = 1;
@@ -308,8 +309,7 @@ void cariMahasiswa(int cariNIM) {
     }
 }
 
-
-
+// Fungsi Utama
 int main() {
     int pilihan;
     
