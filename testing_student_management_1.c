@@ -2,8 +2,10 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
+#include <windows.h>
+#include "loading.h"
+#include "displayMessage.h"
 
-// Struktur data untuk menyimpan informasi mahasiswa
 struct Mahasiswa {
     char *nama;
     int nim;
@@ -11,39 +13,20 @@ struct Mahasiswa {
     char *prodi;
     char *asal;
     char *tanggal_lahir;
+    struct Mahasiswa *next; // Pointer to the next node
 };
 
-struct Mahasiswa mahasiswa[100]; // Maksimum 100 mahasiswa
-int jumlahMahasiswa = 0;
+struct Mahasiswa *head = NULL; // Head of the linked list
 
-// Fungsi untuk menghilangkan spasi di awal dan akhir string
-char *trim(char *str) {
-    char *end;
-    // Menghilangkan spasi di awal
-    while(isspace((unsigned char)*str)) str++;
-    if(*str == 0)  // Semua spasi
-        return str;
-    // Menghilangkan spasi di akhir
-    end = str + strlen(str) - 1;
-    while(end > str && isspace((unsigned char)*end)) end--;
-    // Tambahkan null terminator
-    *(end+1) = 0;
-    return str;
-}
-
-// Fungsi untuk memuat data dari file
-void muatDariFile() {
+void loadData() {
     FILE *file = fopen("mahasiswa.txt", "r");
     if (file == NULL) {
         printf("Gagal membuka file.\n");
         return;
     }
 
-    // Skip header
     char line[256];
-    fgets(line, sizeof(line), file); // Header Nama, NIM, Jurusan, Prodi, Asal, Tanggal Lahir
-    fgets(line, sizeof(line), file); // Garis pembatas
-
+    
     while (fgets(line, sizeof(line), file) != NULL) {
         // Membersihkan karakter newline jika ada
         line[strcspn(line, "\r\n")] = '\0';
@@ -51,109 +34,273 @@ void muatDariFile() {
         // Memecah baris berdasarkan delimiter "|"
         char *token = strtok(line, "|");
 
-        // Menyimpan setiap atribut ke dalam struktur mahasiswa
-        mahasiswa[jumlahMahasiswa].nama = strdup(trim(token));
+        // Membuat node baru untuk setiap mahasiswa
+        struct Mahasiswa *newMahasiswa = (struct Mahasiswa*)malloc(sizeof(struct Mahasiswa));
+        newMahasiswa->nama = strdup(token);
         token = strtok(NULL, "|");
-        mahasiswa[jumlahMahasiswa].nim = atoi(trim(token));
+        newMahasiswa->nim = atoi(token);
         token = strtok(NULL, "|");
-        mahasiswa[jumlahMahasiswa].jurusan = strdup(trim(token));
+        newMahasiswa->jurusan = strdup(token);
         token = strtok(NULL, "|");
-        mahasiswa[jumlahMahasiswa].prodi = strdup(trim(token));
+        newMahasiswa->prodi = strdup(token);
         token = strtok(NULL, "|");
-        mahasiswa[jumlahMahasiswa].asal = strdup(trim(token));
+        newMahasiswa->asal = strdup(token);
         token = strtok(NULL, "|");
-        mahasiswa[jumlahMahasiswa].tanggal_lahir = strdup(trim(token));
+        newMahasiswa->tanggal_lahir = strdup(token);
+        newMahasiswa->next = NULL;
 
-        jumlahMahasiswa++;
+        // Menambahkan node baru ke linked list
+        if (head == NULL) {
+            head = newMahasiswa;
+        } else {
+            struct Mahasiswa *temp = head;
+            while (temp->next != NULL) {
+                temp = temp->next;
+            }
+            temp->next = newMahasiswa;
+        }
     }
     fclose(file);
 
     printf("Data mahasiswa berhasil dimuat dari file.\n");
 }
 
-// Fungsi untuk menampilkan data mahasiswa dalam format tabel
-void tampilkanMahasiswa(struct Mahasiswa mhs) {
-    printf("%-20s | %-10d | %-15s | %-25s | %-20s | %-15s\n", 
-           mhs.nama, mhs.nim, mhs.jurusan, mhs.prodi, mhs.asal, mhs.tanggal_lahir);
-}
 
-// Fungsi untuk menambah data mahasiswa
-void tambahMahasiswa() {
-    if (jumlahMahasiswa >= 100) {
-        printf("Kapasitas maksimum mahasiswa telah tercapai.\n");
-        return;
-    }
-
-    mahasiswa[jumlahMahasiswa].nama = malloc(100 * sizeof(char));
-    mahasiswa[jumlahMahasiswa].jurusan = malloc(100 * sizeof(char));
-    mahasiswa[jumlahMahasiswa].prodi = malloc(100 * sizeof(char));
-    mahasiswa[jumlahMahasiswa].asal = malloc(100 * sizeof(char));
-    mahasiswa[jumlahMahasiswa].tanggal_lahir = malloc(20 * sizeof(char));
-
-    printf("Masukkan data mahasiswa:\n");
-    printf("Nama: ");
-    getchar(); // Membersihkan newline character yang tersisa di buffer
-    fgets(mahasiswa[jumlahMahasiswa].nama, 100, stdin);
-    mahasiswa[jumlahMahasiswa].nama[strcspn(mahasiswa[jumlahMahasiswa].nama, "\n")] = '\0'; // Remove newline character
-
-    printf("NIM: ");
-    scanf("%d", &mahasiswa[jumlahMahasiswa].nim);
-    getchar(); // Membersihkan newline character yang tersisa di buffer
-
-    printf("Jurusan: ");
-    fgets(mahasiswa[jumlahMahasiswa].jurusan, 100, stdin);
-    mahasiswa[jumlahMahasiswa].jurusan[strcspn(mahasiswa[jumlahMahasiswa].jurusan, "\n")] = '\0';
-
-    printf("Prodi: ");
-    fgets(mahasiswa[jumlahMahasiswa].prodi, 100, stdin);
-    mahasiswa[jumlahMahasiswa].prodi[strcspn(mahasiswa[jumlahMahasiswa].prodi, "\n")] = '\0';
-
-    printf("Asal: ");
-    fgets(mahasiswa[jumlahMahasiswa].asal, 100, stdin);
-    mahasiswa[jumlahMahasiswa].asal[strcspn(mahasiswa[jumlahMahasiswa].asal, "\n")] = '\0';
-
-    printf("Tanggal Lahir (DD/MM/YYYY): ");
-    fgets(mahasiswa[jumlahMahasiswa].tanggal_lahir, 20, stdin);
-    mahasiswa[jumlahMahasiswa].tanggal_lahir[strcspn(mahasiswa[jumlahMahasiswa].tanggal_lahir, "\n")] = '\0';
-
-    jumlahMahasiswa++;
-
-    // Menyimpan data mahasiswa ke dalam file
-    FILE *file = fopen("mahasiswa.txt", "a");
+void simpanKeFile() {
+    FILE *file = fopen("mahasiswa.txt", "w");
     if (file == NULL) {
         printf("Gagal membuka file.\n");
         return;
     }
-    fprintf(file, "%-20s | %-10d | %-15s | %-25s | %-20s | %-15s\n", 
-            mahasiswa[jumlahMahasiswa-1].nama, mahasiswa[jumlahMahasiswa-1].nim,
-            mahasiswa[jumlahMahasiswa-1].jurusan, mahasiswa[jumlahMahasiswa-1].prodi, mahasiswa[jumlahMahasiswa-1].asal,
-            mahasiswa[jumlahMahasiswa-1].tanggal_lahir);
-    fclose(file);
 
+    struct Mahasiswa *current = head;
+    while (current != NULL) {
+        // Memeriksa apakah semua atribut memiliki nilai sebelum menuliskannya
+        if (current->nama != NULL && current->jurusan != NULL && current->prodi != NULL &&
+            current->asal != NULL && current->tanggal_lahir != NULL) {
+            fprintf(file, "%s|%d|%s|%s|%s|%s\n",
+                    current->nama, current->nim, current->jurusan, 
+                    current->prodi, current->asal, current->tanggal_lahir);
+        } else {
+            // Jika ada data yang kurang lengkap, tulis baris kosong
+            fprintf(file, "\n");
+        }
+        current = current->next;
+    }
+    fclose(file);
+}
+
+
+
+void tambahMahasiswa() {
+    struct Mahasiswa *newMahasiswa = (struct Mahasiswa*)malloc(sizeof(struct Mahasiswa));
+    newMahasiswa->nama = malloc(100 * sizeof(char));
+    newMahasiswa->jurusan = malloc(100 * sizeof(char));
+    newMahasiswa->prodi = malloc(100 * sizeof(char));
+    newMahasiswa->asal = malloc(100 * sizeof(char));
+    newMahasiswa->tanggal_lahir = malloc(20 * sizeof(char));
+    newMahasiswa->next = NULL;
+
+    printf("Masukkan data mahasiswa:\n");
+    printf("Nama: ");
+    getchar(); // Membersihkan newline character yang tersisa di buffer
+    fgets(newMahasiswa->nama, 100, stdin);
+    newMahasiswa->nama[strcspn(newMahasiswa->nama, "\n")] = '\0'; // Remove newline character
+
+    printf("NIM: ");
+    scanf("%d", &newMahasiswa->nim);
+    getchar(); // Membersihkan newline character yang tersisa di buffer
+
+    printf("Jurusan: ");
+    fgets(newMahasiswa->jurusan, 100, stdin);
+    newMahasiswa->jurusan[strcspn(newMahasiswa->jurusan, "\n")] = '\0';
+
+    printf("Prodi: ");
+    fgets(newMahasiswa->prodi, 100, stdin);
+    newMahasiswa->prodi[strcspn(newMahasiswa->prodi, "\n")] = '\0';
+
+    printf("Asal: ");
+    fgets(newMahasiswa->asal, 100, stdin);
+    newMahasiswa->asal[strcspn(newMahasiswa->asal, "\n")] = '\0';
+
+    printf("Tanggal Lahir (DD/MM/YYYY): ");
+    fgets(newMahasiswa->tanggal_lahir, 20, stdin);
+    newMahasiswa->tanggal_lahir[strcspn(newMahasiswa->tanggal_lahir, "\n")] = '\0';
+
+    if (head == NULL) {
+        head = newMahasiswa;
+    } else {
+        struct Mahasiswa *temp = head;
+        while (temp->next != NULL) {
+            temp = temp->next;
+        }
+        temp->next = newMahasiswa;
+    }
+
+    simpanKeFile(); // Save data to file after adding new student
     printf("Data mahasiswa berhasil ditambahkan.\n");
 }
 
-// Fungsi untuk mencari data mahasiswa berdasarkan NIM menggunakan binary search
-void cariMahasiswa(int cariNIM) {
-    int low = 0;
-    int high = jumlahMahasiswa - 1;
-    int found = 0; // Penanda apakah data ditemukan atau tidak
+void tampilkanSemuaMahasiswa() {
+    struct Mahasiswa *current = head;
+    int nomorUrutan = 1; // Inisialisasi nomor urutan
 
-    while (low <= high) {
-        int mid = (low + high) / 2;
-        if (mahasiswa[mid].nim == cariNIM) {
-            printf("Data Mahasiswa Ditemukan:\n");
-            printf("%-20s | %-10s | %-15s | %-25s | %-20s | %-15s\n", 
-                   "Nama", "NIM", "Jurusan", "Prodi", "Asal", "Tanggal Lahir");
-            printf("----------------------------------------------------------------------------------------------------------------------\n");
-            tampilkanMahasiswa(mahasiswa[mid]);
-            found = 1;
-            break;
-        } else if (mahasiswa[mid].nim < cariNIM) {
-            low = mid + 1;
-        } else {
-            high = mid - 1;
+    if (current == NULL) {
+        printf("Tidak ada data mahasiswa yang tersedia.\n");
+        return;
+    }
+    printf("\nDaftar Mahasiswa:\n");
+    printf("%-5s | %-20s | %-10s | %-20s | %-10s | %-20s | %-15s\n", 
+           "No.", "Nama", "NIM", "Jurusan", "Prodi", "Asal", "Tanggal Lahir");
+    printf("------------------------------------------------------------------------------------------------------------------------------\n");
+    while (current != NULL) {
+        printf("%-5d | %-20s | %-10d | %-20s | %-10s | %-20s | %-15s\n", 
+               nomorUrutan, current->nama, current->nim, current->jurusan, 
+               current->prodi, current->asal, current->tanggal_lahir);
+        current = current->next;
+        nomorUrutan++; // Menambah nomor urutan setiap kali iterasi
+    }
+}
+
+
+
+void editMahasiswa() {
+    int editNIM;
+    char temp[100]; // Deklarasi variabel temp di sini
+    printf("Masukkan NIM mahasiswa yang akan diedit: ");
+    scanf("%d", &editNIM);
+    getchar(); // Membersihkan newline character yang tersisa di buffer
+
+    struct Mahasiswa *current = head;
+    int count = 1; // Nomor urut untuk menampilkan data lama mahasiswa
+    while (current != NULL) {
+        if (current->nim == editNIM) {
+            printf("\nData lama mahasiswa:\n");
+            printf("%-4s | %-20s | %-10s | %-20s | %-10s | %-20s | %-15s\n", 
+                   "No.", "Nama", "NIM", "Jurusan", "Prodi", "Asal", "Tanggal Lahir");
+            printf("------------------------------------------------------------------------------------------------------------------------------\n");
+            // Tampilkan data lama mahasiswa beserta nomor urut
+            printf("%-4d | %-20s | %-10d | %-20s | %-10s | %-20s | %-15s\n", 
+                   count, current->nama, current->nim, current->jurusan, 
+                   current->prodi, current->asal, current->tanggal_lahir);
+
+            if (editNIM == count) {
+                printf("\nMasukkan data baru:\n");
+
+                printf("Nama: ");
+                fgets(temp, sizeof(temp), stdin);
+                temp[strcspn(temp, "\n")] = '\0';
+                free(current->nama);
+                current->nama = strdup(temp);
+
+                printf("Jurusan: ");
+                fgets(temp, sizeof(temp), stdin);
+                temp[strcspn(temp, "\n")] = '\0';
+                free(current->jurusan);
+                current->jurusan = strdup(temp);
+
+                printf("Prodi: ");
+                fgets(temp, sizeof(temp), stdin);
+                temp[strcspn(temp, "\n")] = '\0';
+                free(current->prodi);
+                current->prodi = strdup(temp);
+
+                printf("Asal: ");
+                fgets(temp, sizeof(temp), stdin);
+                temp[strcspn(temp, "\n")] = '\0';
+                free(current->asal);
+                current->asal = strdup(temp);
+
+                printf("Tanggal Lahir (DD/MM/YYYY): ");
+                fgets(temp, sizeof(temp), stdin);
+                temp[strcspn(temp, "\n")] = '\0';
+                free(current->tanggal_lahir);
+                current->tanggal_lahir = strdup(temp);
+
+                printf("Data mahasiswa berhasil diedit.\n");
+
+                // Simpan perubahan ke dalam file
+                simpanKeFile();
+
+                return;
+            } else {
+                printf("Nomor urut tidak valid. Silakan coba lagi.\n");
+                return;
+            }
         }
+        current = current->next;
+        count++;
+    }
+    printf("Mahasiswa dengan NIM %d tidak ditemukan.\n", editNIM);
+}
+
+
+
+void hapusMahasiswa() {
+    int hapusNIM;
+    printf("Masukkan NIM mahasiswa yang akan dihapus: ");
+    scanf("%d", &hapusNIM);
+    getchar(); // Membersihkan newline character yang tersisa di buffer
+
+    struct Mahasiswa *temp = head, *prev = NULL;
+
+    // Jika head node itu sendiri yang perlu dihapus
+    if (temp != NULL && temp->nim == hapusNIM) {
+        head = temp->next; // Changed head
+        free(temp->nama);
+        free(temp->jurusan);
+        free(temp->prodi);
+        free(temp->asal);
+        free(temp->tanggal_lahir);
+        free(temp);
+        printf("Data mahasiswa berhasil dihapus.\n");
+        simpanKeFile();
+        return;
+    }
+
+    // Cari node yang akan dihapus, simpan pointer ke node sebelumnya
+    while (temp != NULL && temp->nim != hapusNIM) {
+        prev = temp;
+        temp = temp->next;
+    }
+
+    // Jika NIM tidak ditemukan
+    if (temp == NULL) {
+        printf("Mahasiswa dengan NIM %d tidak ditemukan.\n", hapusNIM);
+        return;
+    }
+
+    // Hapus node
+    prev->next = temp->next;
+    free(temp->nama);
+    free(temp->jurusan);
+    free(temp->prodi);
+    free(temp->asal);
+    free(temp->tanggal_lahir);
+    free(temp);
+
+    printf("Data mahasiswa berhasil dihapus.\n");
+    simpanKeFile();
+}
+
+void cariMahasiswa(int cariNIM) {
+    struct Mahasiswa *current = head;
+    int nomorUrutan = 1;
+    int found = 0;
+    printf("%-5s | %-20s | %-10s | %-20s | %-10s | %-20s | %-15s\n", 
+           "No.", "Nama", "NIM", "Jurusan", "Prodi", "Asal", "Tanggal Lahir");
+    printf("------------------------------------------------------------------------------------------------------------------------------\n");
+    while (current != NULL) {
+        if (current->nim == cariNIM) {
+            printf("%-5d | %-20s | %-20s | %-10s | %-25s | %-20s | %-15s\n", 
+               nomorUrutan, current->nama, current->nim, current->jurusan, 
+               current->prodi, current->asal, current->tanggal_lahir);
+            found = 1;
+            printf("\nData yang kamu cari terdapat pada baris ke %d.\n", nomorUrutan);
+            break;
+        }
+        current = current->next;
+        nomorUrutan++;
     }
 
     if (!found) {
@@ -161,162 +308,18 @@ void cariMahasiswa(int cariNIM) {
     }
 }
 
-// Fungsi untuk mengedit data mahasiswa
-void editMahasiswa() {
-    int editNIM;
-    char temp[100]; // Deklarasi variabel temp di sini
-    printf("Masukkan NIM mahasiswa yang akan diedit: ");
-    scanf("%d", &editNIM);
-    getchar(); // Membersihkan newline character yang tersisa di buffer
-    int i;
-    for (i = 0; i < jumlahMahasiswa; i++) {
-        if (mahasiswa[i].nim == editNIM) {
-            printf("Data lama mahasiswa:\n");
-            printf("%-20s | %-10s | %-15s | %-25s | %-20s | %-15s\n", 
-                   "Nama", "NIM", "Jurusan", "Prodi", "Asal", "Tanggal Lahir");
-            printf("----------------------------------------------------------------------------------------------------------------------\n");
-            tampilkanMahasiswa(mahasiswa[i]);
 
-            printf("Masukkan data baru:\n");
-
-            printf("Nama: ");
-            fgets(temp, sizeof(temp), stdin);
-            temp[strcspn(temp, "\n")] = '\0';
-            free(mahasiswa[i].nama);
-            mahasiswa[i].nama = strdup(temp);
-
-            printf("Jurusan: ");
-            fgets(temp, sizeof(temp), stdin);
-            temp[strcspn(temp, "\n")] = '\0';
-            free(mahasiswa[i].jurusan);
-            mahasiswa[i].jurusan = strdup(temp);
-
-            printf("Prodi: ");
-            fgets(temp, sizeof(temp), stdin);
-            temp[strcspn(temp, "\n")] = '\0';
-            free(mahasiswa[i].prodi);
-            mahasiswa[i].prodi = strdup(temp);
-
-            printf("Asal: ");
-            fgets(temp, sizeof(temp), stdin);
-            temp[strcspn(temp, "\n")] = '\0';
-            free(mahasiswa[i].asal);
-            mahasiswa[i].asal = strdup(temp);
-
-            printf("Tanggal Lahir (DD/MM/YYYY): ");
-            fgets(temp, sizeof(temp), stdin);
-            temp[strcspn(temp, "\n")] = '\0';
-            free(mahasiswa[i].tanggal_lahir);
-            mahasiswa[i].tanggal_lahir = strdup(temp);
-
-            printf("Data mahasiswa berhasil diedit.\n");
-
-            // Simpan perubahan ke dalam file
-            FILE *file = fopen("mahasiswa.txt", "w");
-            if (file == NULL) {
-                printf("Gagal membuka file.\n");
-                return;
-            }
-            fprintf(file, "%-20s | %-10s | %-15s | %-25s | %-20s | %-15s\n", 
-                    "Nama", "NIM", "Jurusan", "Prodi", "Asal", "Tanggal Lahir");
-            fprintf(file, "----------------------------------------------------------------------------------------------------------------------\n");
-            int j;
-			for (j = 0; j < jumlahMahasiswa; j++) {
-                fprintf(file, "%-20s | %-10d | %-15s | %-25s | %-20s | %-15s\n", 
-                        mahasiswa[j].nama, mahasiswa[j].nim, mahasiswa[j].jurusan,
-                        mahasiswa[j].prodi, mahasiswa[j].asal, mahasiswa[j].tanggal_lahir);
-            }
-            fclose(file);
-
-            return;
-        }
-    }
-    printf("Mahasiswa dengan NIM %d tidak ditemukan.\n", editNIM);
-}
-// Fungsi untuk menghapus data mahasiswa berdasarkan NIM
-void hapusMahasiswa() {
-    int hapusNIM;
-    printf("Masukkan NIM mahasiswa yang akan dihapus: ");
-    scanf("%d", &hapusNIM);
-    int i, j, ditemukan = 0;
-    for (i = 0; i < jumlahMahasiswa; i++) {
-        if (mahasiswa[i].nim == hapusNIM) {
-            ditemukan = 1;
-            free(mahasiswa[i].nama);
-            free(mahasiswa[i].jurusan);
-            free(mahasiswa[i].prodi);
-            free(mahasiswa[i].asal);
-            free(mahasiswa[i].tanggal_lahir);
-            for (j = i; j < jumlahMahasiswa - 1; j++) {
-                mahasiswa[j] = mahasiswa[j + 1];
-            }
-            jumlahMahasiswa--;
-            break;
-        }
-    }
-    if (!ditemukan) {
-        printf("Mahasiswa dengan NIM %d tidak ditemukan.\n", hapusNIM);
-        return;
-    }
-
-    // Memperbarui file mahasiswa.txt
-    FILE *file = fopen("mahasiswa.txt", "w");
-    if (file == NULL) {
-        printf("Gagal membuka file.\n");
-        return;
-    }
-    fprintf(file, "%-20s | %-10s | %-15s | %-25s | %-20s | %-15s\n", 
-            "Nama", "NIM", "Jurusan", "Prodi", "Asal", "Tanggal Lahir");
-    fprintf(file, "----------------------------------------------------------------------------------------------------------------------\n");
-    for (i = 0; i < jumlahMahasiswa; i++) {
-        fprintf(file, "%-20s | %-10d | %-15s | %-25s | %-20s | %-15s\n", 
-                mahasiswa[i].nama, mahasiswa[i].nim, mahasiswa[i].jurusan, mahasiswa[i].prodi, mahasiswa[i].asal,
-                mahasiswa[i].tanggal_lahir);
-    }
-    fclose(file);
-
-    printf("Data mahasiswa berhasil dihapus.\n");
-}
-
-// Fungsi untuk menampilkan semua data mahasiswa dalam format tabel
-void tampilkanSemuaMahasiswa() {
-	printf("\n");
-    printf("%-20s | %-10s | %-15s | %-25s | %-20s | %-15s\n", 
-           "Nama", "NIM", "Jurusan", "Prodi", "Asal", "Tanggal Lahir");
-    printf("----------------------------------------------------------------------------------------------------------------------\n");
-    int i;
-	for (i = 0; i < jumlahMahasiswa; i++) {
-        printf("%-20s | %-10d | %-15s | %-25s | %-20s | %-15s\n", 
-               mahasiswa[i].nama, mahasiswa[i].nim, mahasiswa[i].jurusan,
-               mahasiswa[i].prodi, mahasiswa[i].asal, mahasiswa[i].tanggal_lahir);
-    }
-}
-
-
-// Fungsi untuk menyimpan data mahasiswa ke dalam file
-void simpanKeFile() {
-    FILE *file = fopen("mahasiswa.txt", "w");
-    if (file == NULL) {
-        printf("Gagal membuka file.\n");
-        return;
-    }
-    fprintf(file, "%-20s | %-10s | %-15s | %-25s | %-20s | %-15s\n", 
-            "Nama", "NIM", "Jurusan", "Prodi", "Asal", "Tanggal Lahir");
-    fprintf(file, "----------------------------------------------------------------------------------------------------------------------\n");
-    int i;
-	for (i = 0; i < jumlahMahasiswa; i++) {
-        fprintf(file, "%-20s | %-10d | %-15s | %-25s | %-20s | %-15s\n", 
-                mahasiswa[i].nama, mahasiswa[i].nim, mahasiswa[i].jurusan,
-                mahasiswa[i].prodi, mahasiswa[i].asal, mahasiswa[i].tanggal_lahir);
-    }
-    fclose(file);
-    printf("Data mahasiswa berhasil disimpan ke file.\n");
-}
 
 int main() {
     int pilihan;
+    
+    system("cls");
+    
+    displayWelcomeMessage();
+    loading_bar(5); // Loading page at the start
+    
     while (1) {
-        system("cls"); // Bersihkan layar
+        system("cls"); 
         printf("\nMenu:\n");
         printf("1. Muat data dari file\n");
         printf("2. Tambah data mahasiswa\n");
@@ -331,7 +334,7 @@ int main() {
 
         switch (pilihan) {
             case 1:
-                muatDariFile();
+                loadData();
                 break;
             case 2:
                 tambahMahasiswa();
@@ -368,4 +371,5 @@ int main() {
     }
     return 0;
 }
+
 
