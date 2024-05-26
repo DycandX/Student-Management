@@ -87,3 +87,4 @@ Hana Ayu|62837145|Teknik Industri|TI|Kota Yogyakarta|06/10/2001
 Dian Fitri|49283741|Teknik Elektro|TRK|Kota Semarang|14/02/2004
 Lia Amalia|58293741|Teknik Kimia|TK|Kota Medan|03/07/2002
 Bima Pratama|72638471|Teknik Lingkungan|TL|Kota Solo|09/09/2000
+Anindita Rahma|43323206|Teknik Elektro|TRK|Kota Semarang|06/04/2005

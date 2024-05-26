@@ -175,70 +175,64 @@ void tampilkanSemuaMahasiswa() {
 // Fungsi untuk mengedit data
 void editMahasiswa() {
     int editNIM;
-    char temp[100]; // Deklarasi variabel temp di sini
     printf("Masukkan NIM mahasiswa yang akan diedit: ");
     scanf("%d", &editNIM);
     getchar(); // Membersihkan newline character yang tersisa di buffer
 
     struct Mahasiswa *current = head;
-    int count = 1; // Nomor urut untuk menampilkan data lama mahasiswa
     while (current != NULL) {
         if (current->nim == editNIM) {
             printf("\nData lama mahasiswa:\n");
             printf("%-4s | %-20s | %-10s | %-20s | %-10s | %-20s | %-15s\n", 
                    "No.", "Nama", "NIM", "Jurusan", "Prodi", "Asal", "Tanggal Lahir");
             printf("------------------------------------------------------------------------------------------------------------------------------\n");
-            // Tampilkan data lama mahasiswa beserta nomor urut
+            // Tampilkan data lama mahasiswa
             printf("%-4d | %-20s | %-10d | %-20s | %-10s | %-20s | %-15s\n", 
-                   count, current->nama, current->nim, current->jurusan, 
+                   1, current->nama, current->nim, current->jurusan, 
                    current->prodi, current->asal, current->tanggal_lahir);
 
-            if (editNIM == count) {
-                printf("\nMasukkan data baru:\n");
+            printf("\nMasukkan data baru:\n");
 
-                printf("Nama: ");
-                fgets(temp, sizeof(temp), stdin);
-                temp[strcspn(temp, "\n")] = '\0';
-                free(current->nama);
-                current->nama = strdup(temp);
+            char temp[100]; // Variabel temp digunakan untuk menyimpan input sementara
 
-                printf("Jurusan: ");
-                fgets(temp, sizeof(temp), stdin);
-                temp[strcspn(temp, "\n")] = '\0';
-                free(current->jurusan);
-                current->jurusan = strdup(temp);
+            printf("Nama: ");
+            fgets(temp, sizeof(temp), stdin);
+            temp[strcspn(temp, "\n")] = '\0';
+            free(current->nama);
+            current->nama = strdup(temp);
 
-                printf("Prodi: ");
-                fgets(temp, sizeof(temp), stdin);
-                temp[strcspn(temp, "\n")] = '\0';
-                free(current->prodi);
-                current->prodi = strdup(temp);
+            printf("Jurusan: ");
+            fgets(temp, sizeof(temp), stdin);
+            temp[strcspn(temp, "\n")] = '\0';
+            free(current->jurusan);
+            current->jurusan = strdup(temp);
 
-                printf("Asal: ");
-                fgets(temp, sizeof(temp), stdin);
-                temp[strcspn(temp, "\n")] = '\0';
-                free(current->asal);
-                current->asal = strdup(temp);
+            printf("Prodi: ");
+            fgets(temp, sizeof(temp), stdin);
+            temp[strcspn(temp, "\n")] = '\0';
+            free(current->prodi);
+            current->prodi = strdup(temp);
 
-                printf("Tanggal Lahir (DD/MM/YYYY): ");
-                fgets(temp, sizeof(temp), stdin);
-                temp[strcspn(temp, "\n")] = '\0';
-                free(current->tanggal_lahir);
-                current->tanggal_lahir = strdup(temp);
+            printf("Asal: ");
+            fgets(temp, sizeof(temp), stdin);
+            temp[strcspn(temp, "\n")] = '\0';
+            free(current->asal);
+            current->asal = strdup(temp);
 
-                printf("Data mahasiswa berhasil diedit.\n");
+            printf("Tanggal Lahir (DD/MM/YYYY): ");
+            fgets(temp, sizeof(temp), stdin);
+            temp[strcspn(temp, "\n")] = '\0';
+            free(current->tanggal_lahir);
+            current->tanggal_lahir = strdup(temp);
 
-                // Simpan perubahan ke dalam file
-                simpanKeFile();
+            printf("Data mahasiswa berhasil diedit.\n");
 
-                return;
-            } else {
-                printf("Nomor urut tidak valid. Silakan coba lagi.\n");
-                return;
-            }
+            // Simpan perubahan ke dalam file
+            simpanKeFile();
+
+            return;
         }
         current = current->next;
-        count++;
     }
     printf("Mahasiswa dengan NIM %d tidak ditemukan.\n", editNIM);
 }
