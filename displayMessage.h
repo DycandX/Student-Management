@@ -1,5 +1,9 @@
 #include <stdio.h>
 
+// Define ANSI escape codes for text colors
+#define ANSI_COLOR_RED     "\x1b[31m"
+#define ANSI_COLOR_RESET   "\x1b[0m"
+
 void displayWelcomeMessage() {
     printf("\n\n\n");
     printf("\t\t   _____ _______ _    _ _____  ______ _   _ _______   __  __          _   _          _____ ______ __  __ ______ _   _ _______ \n");
@@ -10,14 +14,8 @@ void displayWelcomeMessage() {
     printf("\t\t |_____/   |_|   \\____/|_____/|______|_| \\_|  |_|    |_|  |_/_/    \\_\\_| \\_/_/    \\_\\_____|______|_|  |_|______|_| \\_|  |_|   \n");
     printf("\n");
     printf("\t\t\t\t\t     *************************************************************\n");
-    printf("\t\t\t\t\t     ******** Welcome to Simple Student Management System ********\n");
-    printf("\t\t\t\t\t     **************** By Zulvikar.exe ****************************\n");
+    printf("\t\t\t\t\t     ******** " ANSI_COLOR_RED  "Welcome to Simple Student Management System" ANSI_COLOR_RESET " ********\n" );
+    printf("\t\t\t\t\t     ********************** " ANSI_COLOR_RED "By Zulvikar.exe" ANSI_COLOR_RESET " **********************\n");
+    printf("\t\t\t\t\t     *************************** " ANSI_COLOR_RED "TI-1C" ANSI_COLOR_RESET " ***************************\n");
     printf("\t\t\t\t\t     *************************************************************\n\n");
 }
-
-void displayLoadingComplete() {
-    printf(" _        _  ___       __    _  _        _      _ ___ _  _  \n");
-    printf(" |  / \\  /\\  | \\  |  |\\ | /__   /  / \\ |\\/| |_) |  |_  | |_ | \\ \n");
-    printf(" |_ \\_/ /--\\ |_/ _|_ | \\| \\_|   \\_ \\_/ |  | |   |_ |_  | |_ |_/\n");
-}
-

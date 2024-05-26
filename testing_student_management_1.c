@@ -150,11 +150,11 @@ void tampilkanSemuaMahasiswa() {
         return;
     }
     printf("\nDaftar Mahasiswa:\n");
-    printf("%-5s | %-20s | %-10s | %-15s | %-25s | %-20s | %-15s\n", 
+    printf("%-5s | %-20s | %-10s | %-20s | %-10s | %-20s | %-15s\n", 
            "No.", "Nama", "NIM", "Jurusan", "Prodi", "Asal", "Tanggal Lahir");
     printf("------------------------------------------------------------------------------------------------------------------------------\n");
     while (current != NULL) {
-        printf("%-5d | %-20s | %-10d | %-15s | %-25s | %-20s | %-15s\n", 
+        printf("%-5d | %-20s | %-10d | %-20s | %-10s | %-20s | %-15s\n", 
                nomorUrutan, current->nama, current->nim, current->jurusan, 
                current->prodi, current->asal, current->tanggal_lahir);
         current = current->next;
@@ -176,11 +176,11 @@ void editMahasiswa() {
     while (current != NULL) {
         if (current->nim == editNIM) {
             printf("\nData lama mahasiswa:\n");
-            printf("%-4s | %-20s | %-10s | %-15s | %-25s | %-20s | %-15s\n", 
+            printf("%-4s | %-20s | %-10s | %-20s | %-10s | %-20s | %-15s\n", 
                    "No.", "Nama", "NIM", "Jurusan", "Prodi", "Asal", "Tanggal Lahir");
             printf("------------------------------------------------------------------------------------------------------------------------------\n");
             // Tampilkan data lama mahasiswa beserta nomor urut
-            printf("%-4d | %-20s | %-10d | %-15s | %-25s | %-20s | %-15s\n", 
+            printf("%-4d | %-20s | %-10d | %-20s | %-10s | %-20s | %-15s\n", 
                    count, current->nama, current->nim, current->jurusan, 
                    current->prodi, current->asal, current->tanggal_lahir);
 
@@ -287,12 +287,12 @@ void cariMahasiswa(int cariNIM) {
     struct Mahasiswa *current = head;
     int nomorUrutan = 1;
     int found = 0;
-    printf("%-5s | %-20s | %-10s | %-15s | %-25s | %-20s | %-15s\n", 
+    printf("%-5s | %-20s | %-10s | %-20s | %-10s | %-20s | %-15s\n", 
            "No.", "Nama", "NIM", "Jurusan", "Prodi", "Asal", "Tanggal Lahir");
     printf("------------------------------------------------------------------------------------------------------------------------------\n");
     while (current != NULL) {
         if (current->nim == cariNIM) {
-            printf("%-5d | %-20s | %-10d | %-15s | %-25s | %-20s | %-15s\n", 
+            printf("%-5d | %-20s | %-20s | %-10s | %-25s | %-20s | %-15s\n", 
                nomorUrutan, current->nama, current->nim, current->jurusan, 
                current->prodi, current->asal, current->tanggal_lahir);
             found = 1;
