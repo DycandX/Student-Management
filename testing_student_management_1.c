@@ -1,3 +1,12 @@
+/*
+Nama Program: student_management.c
+Deskripsi	: Program student management system (Tugas Besar Struktur Data)
+Nama Author	: Zulvikar Kharisma Nur M.
+NIM			: 4.33.23.2.26
+Tanggal		: 27/05/2024
+Github Repo : https://github.com/DycandX/Student-Management
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
