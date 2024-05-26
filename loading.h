@@ -38,7 +38,9 @@ void loading_bar(int seconds) {
         printf("%c", x);
     }
     system("cls");
-    printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\t\t\t\t\t\t\tLoading Completed");
+    printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\t\t\t\t\t\t\t*********************************");
+    printf("\n\t\t\t\t\t\t\t*\tLoading Completed\t*");
+    printf("\n\t\t\t\t\t\t\t*********************************");
     Sleep(1000);
 
     system("cls");
