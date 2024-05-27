@@ -83,3 +83,4 @@ Bela Susanti|43323219|Teknik Kimia|TK|Kota Medan|17/04/2004
 Toni Wibowo|43323277|Sistem Informasi|SI|Kota Surabaya|30/06/2000
 Novi Yanti|43323201|Teknik Lingkungan|TL|Kota Solo|07/08/2001
 Bayu Putra|43323288|Teknik Elektro|TRK|Kota Semarang|03/10/2002
+Anindita Rahma|43323206|Teknik Elektro|TRK|Kota Semarang|06/04/2005

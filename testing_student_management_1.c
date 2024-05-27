@@ -296,7 +296,7 @@ void cariMahasiswa(int cariNIM) {
     printf("------------------------------------------------------------------------------------------------------------------------------\n");
     while (current != NULL) {
         if (current->nim == cariNIM) {
-            printf("%-5d | %-20s | %-20d | %-10s | %-25s | %-20s | %-15s\n", 
+            printf("%-5d | %-20s | %-10d | %-20s | %-10s | %-20s | %-15s\n", 
                nomorUrutan, current->nama, current->nim, current->jurusan, 
                current->prodi, current->asal, current->tanggal_lahir);
             found = 1;
