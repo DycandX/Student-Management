@@ -345,10 +345,10 @@ void tampilkanSemuaMahasiswa() {
     int nomorUrutan = 1; // Inisialisasi nomor urutan
 
     if (current == NULL) {
-        printf("T\t\t\t\t\t\t\tidak ada data mahasiswa yang tersedia.\n");
+        printf("\t\t\t\t\t\t\tTidak ada data mahasiswa yang tersedia.\n");
         return;
     }
-    printf("\t\t\t\t\t\t\t\nDaftar Mahasiswa:\n");
+    printf("\t\t\t\t\t\t\t\n\nDaftar Mahasiswa:\n\n");
     printf("%-5s | %-20s | %-10s | %-20s | %-10s | %-20s | %-15s\n", 
            "No.", "Nama", "NIM", "Jurusan", "Prodi", "Asal", "Tanggal Lahir");
     printf("------------------------------------------------------------------------------------------------------------------------------\n");
