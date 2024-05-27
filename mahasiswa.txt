@@ -62,7 +62,7 @@ Sari Widya|43323220|Teknik Mesin|TM|Kota Jakarta|19/03/2000
 Nani Amelia|43323273|Sistem Informasi|SI|Kota Surabaya|02/02/2003
 Ari Pratama|43323224|Teknik Elektro|TRK|Kota Semarang|18/09/2000
 Mira Safitri|43323261|Sistem Informasi|SI|Kota Surabaya|09/11/2000
-Rahmat Hidayat|43323226|Teknik Lingkungan|TL|Kota Solo|11/05/2000
+Rahmat Hidayat|43323281|Teknik Lingkungan|TL|Kota Solo|11/05/2000
 Agus Wibowo|43323250|Sistem Informasi|SI|Kota Surabaya|07/04/2000
 Budi Santoso|43323228|Sistem Informasi|SI|Kota Surabaya|22/03/2001
 Bima Pratama|43323217|Teknik Lingkungan|TL|Kota Solo|09/09/2000
@@ -83,4 +83,3 @@ Bela Susanti|43323219|Teknik Kimia|TK|Kota Medan|17/04/2004
 Toni Wibowo|43323277|Sistem Informasi|SI|Kota Surabaya|30/06/2000
 Novi Yanti|43323201|Teknik Lingkungan|TL|Kota Solo|07/08/2001
 Bayu Putra|43323288|Teknik Elektro|TRK|Kota Semarang|03/10/2002
-Anindita Rahma|43323206|Teknik Elektro|TRK|Kota Semarang|06/04/2005
