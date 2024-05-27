@@ -146,7 +146,7 @@ void tambahMahasiswa() {
         temp->next = newMahasiswa;
     }
 
-    simpanKeFile(); // Save data to file after adding new student
+    simpanKeFile(); // Menyimpan data ke file setelah menambahkan data baru
     printf("Data mahasiswa berhasil ditambahkan.\n");
 }
 
@@ -312,6 +312,37 @@ void cariMahasiswa(int cariNIM) {
     }
 }
 
+// Fungsi untuk menyortir data pada linked list menggunakan insertion sort
+void insertionSort() {
+    if (head == NULL || head->next == NULL) {
+        return; // Tidak perlu menyortir jika list kosong atau hanya satu elemen
+    }
+
+    struct Mahasiswa *sorted = NULL; // Membuat list kosong untuk sorted
+    struct Mahasiswa *current = head;
+
+    while (current != NULL) {
+        struct Mahasiswa *next = current->next;
+
+        if (sorted == NULL || sorted->nim >= current->nim) {
+            current->next = sorted;
+            sorted = current;
+        } else {
+            struct Mahasiswa *temp = sorted;
+            while (temp->next != NULL && temp->next->nim < current->nim) {
+                temp = temp->next;
+            }
+            current->next = temp->next;
+            temp->next = current;
+        }
+        current = next;
+    }
+
+    head = sorted;
+    printf("Data mahasiswa berhasil diurutkan berdasarkan NIM.\n");
+}
+
+
 // Fungsi Utama
 int main() {
     int pilihan;
@@ -331,7 +362,8 @@ int main() {
         printf("5. Hapus Data Mahasiswa\n");
         printf("6. Tampilkan semua data mahasiswa\n");
         printf("7. Simpan data ke file\n");
-        printf("8. Keluar\n");
+        printf("8. Urutkan data mahasiswa berdasarkan NIM\n"); // Tambahkan opsi ini
+        printf("0. Keluar\n");
         printf("Masukkan pilihan Anda: ");
         scanf("%d", &pilihan);
 
@@ -364,6 +396,10 @@ int main() {
                 simpanKeFile();
                 break;
             case 8:
+                insertionSort();
+                //simpanKeFile(); // Simpan perubahan setelah sorting
+                break;
+            case 0:
                 exit(0);
             default:
                 printf("Pilihan tidak valid. Silakan coba lagi.\n");
@@ -374,5 +410,6 @@ int main() {
     }
     return 0;
 }
+
 
 
