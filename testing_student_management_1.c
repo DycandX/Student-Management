@@ -536,6 +536,7 @@ void insertionSort() {
 int main() {
     int pilihan;
     char input[10];
+	char username[50];
     
     system("cls");
     
@@ -570,7 +571,7 @@ int main() {
                         printf("\t\t\t\t\t\t\t6. Tampilkan semua data mahasiswa\n");
                         printf("\t\t\t\t\t\t\t7. Simpan data ke file\n");
                         printf("\t\t\t\t\t\t\t8. Urutkan data mahasiswa berdasarkan NIM\n");
-                        printf("\t\t\t\t\t\t\t0. Kembali ke Login Menu\n");
+                        printf("\t\t\t\t\t\t\t0. Keluar\n");
                         printf("\n\t\t\t\t\t\t\tMasukkan pilihan Anda: ");
                         scanf("%d", &pilihan);
 
