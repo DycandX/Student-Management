@@ -22,10 +22,10 @@ struct Mahasiswa {
     char *prodi;
     char *asal;
     char *tanggal_lahir;
-    struct Mahasiswa *next; // Pointer to the next node
+    struct Mahasiswa *next; // Pointer ke next node
 };
 
-struct Mahasiswa *head = NULL; // Head of the linked list
+struct Mahasiswa *head = NULL; // Head dari linked list
 
 // Fungsi untuk load data dari file mahasiswa.txt
 void loadData() {
