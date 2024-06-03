@@ -17,7 +17,10 @@ void displayWelcomeMessage() {
     printf("\t\t\t\t\t     ******** " ANSI_COLOR_RED  "Welcome to Simple Student Management System" ANSI_COLOR_RESET " ********\n" );
     printf("\t\t\t\t\t     ********************** " ANSI_COLOR_RED "By Zulvikar.exe" ANSI_COLOR_RESET " **********************\n");
     printf("\t\t\t\t\t     *************************** " ANSI_COLOR_RED "TI-1C" ANSI_COLOR_RESET " ***************************\n");
+    printf("\t\t\t\t\t     *************************************************************\n");
+    printf("\t\t\t\t\t     ******* " ANSI_COLOR_RED "https://github.com/DycandX/Student-Management" ANSI_COLOR_RESET " *******\n");
     printf("\t\t\t\t\t     *************************************************************\n\n");
+    
 }
 
 void displayInitialMessage() {
@@ -33,6 +36,8 @@ void displayInitialMessage() {
     printf("\t\t\t\t\t     ******** " ANSI_COLOR_RED  "Welcome to Simple Student Management System" ANSI_COLOR_RESET " ********\n" );
     printf("\t\t\t\t\t     ********************** " ANSI_COLOR_RED "By Zulvikar.exe" ANSI_COLOR_RESET " **********************\n");
     printf("\t\t\t\t\t     *************************** " ANSI_COLOR_RED "TI-1C" ANSI_COLOR_RESET " ***************************\n");
+    printf("\t\t\t\t\t     *************************************************************\n");
+    printf("\t\t\t\t\t     ******* " ANSI_COLOR_RED "https://github.com/DycandX/Student-Management" ANSI_COLOR_RESET " *******\n");
     printf("\t\t\t\t\t     *************************************************************\n\n");
 }
 
@@ -61,7 +66,7 @@ void displayMenuLogin() {
 
 //Fungsi untuk menampilkan return message
 void displayReturnMessage() {
-    printf("\n\t\t\t\t\t\t  Return to the login menu\n");
+    printf("\n\t\t\t\t\t\t\t  Return to the login menu\n");
 }
 
 void displayMainMenuLogo() {

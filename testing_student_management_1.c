@@ -66,9 +66,9 @@ void registerAccount() {
     system("cls");
 
     displayRegisterMessage();
-    printf("\t\t\t\t\tEnter your username:\t");
+    printf("\t\t\t\t\t\tEnter your username:\t");
     scanf("%s", usr.username);
-    printf("\t\t\t\t\tEnter your new password:\t");
+    printf("\t\t\t\t\t\tEnter your password:\t");
     getPassword(usr.password);
 
     fp = fopen("users.txt", "a"); // Buka file untuk menambahkan data baru
@@ -80,7 +80,7 @@ void registerAccount() {
         } else {
             // Tulis informasi pengguna ke dalam file users.txt
             fprintf(fp, "%s|%s\n", usr.username, usr.password);
-            printf("\n\n\t\t\t\t\tAccount successfully registered");
+            printf("\n\n\t\t\t\t\t\t\tAccount successfully registered");
         }
         fclose(fp);
     } else {
@@ -563,16 +563,16 @@ int main() {
                     while (1) { // Loop untuk menu utama
                         system("cls"); 
                         displayMainMenuLogo();
-                        printf("\n\n\t\t\t\t\t\t\t1. Muat data dari file\n");
-                        printf("\t\t\t\t\t\t\t2. Tambah data mahasiswa\n");
-                        printf("\t\t\t\t\t\t\t3. Cari data mahasiswa\n");
-                        printf("\t\t\t\t\t\t\t4. Edit data mahasiswa\n");
-                        printf("\t\t\t\t\t\t\t5. Hapus Data Mahasiswa\n");
-                        printf("\t\t\t\t\t\t\t6. Tampilkan semua data mahasiswa\n");
-                        printf("\t\t\t\t\t\t\t7. Simpan data ke file\n");
-                        printf("\t\t\t\t\t\t\t8. Urutkan data mahasiswa berdasarkan NIM\n");
-                        printf("\t\t\t\t\t\t\t0. Keluar\n");
-                        printf("\n\t\t\t\t\t\t\tMasukkan pilihan Anda: ");
+                        printf("\n\n\t\t\t\t\t\t\t\t1. Load data\n");
+                        printf("\t\t\t\t\t\t\t\t2. Add data mahasiswa\n");
+                        printf("\t\t\t\t\t\t\t\t3. Search data mahasiswa\n");
+                        printf("\t\t\t\t\t\t\t\t4. Edit data mahasiswa\n");
+                        printf("\t\t\t\t\t\t\t\t5. Delete Data Mahasiswa\n");
+                        printf("\t\t\t\t\t\t\t\t6. Show data mahasiswa\n");
+                        printf("\t\t\t\t\t\t\t\t7. Save data\n");
+                        printf("\t\t\t\t\t\t\t\t8. Sorting data mahasiswa\n");
+                        printf("\t\t\t\t\t\t\t\t0. Exit\n");
+                        printf("\n\t\t\t\t\t\t\t\tMasukkan pilihan Anda: ");
                         scanf("%d", &pilihan);
 
                         switch (pilihan) {
